@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - RoundHere</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Create.css" />
+
+    @Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css")
+    @Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js")
+
+    @*	<link rel="stylesheet" href="~/Content/Create.css" />*@
+
+</head>
+
+<div id="border">
+   
+
+        <!-- Form Name -->
+        <span id="placetitle">Add a Place</span>
+		@using (Html.BeginForm("CreateQueryExecution", "Create", FormMethod.Post, new { enctype = "multipart/form-data" }))
+  {
+        <!-- name input-->
+        <div class="form-group1">
+            <label class="form-label" for="nameinput">Name of Place*</label>
+            <div class="controls">
+                <input id="nameinput" name="nameinput" type="text" data-bind="value: name" placeholder="Enter Name" class="form-control" required />
+            </div>
+        </div>
+
+        <!-- address input-->
+        <div class="form-group">
+            <label class="form-label" for="addressinput">Address*</label>
+            <div class="controls">
+                <input id="addressinput" name="addressinput" type="text" data-bind="value: address" placeholder="address" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- zipcode input-->
+        <div class="form-group">
+            <label class="form-label" for="zipcodeinput">Zipcode*</label>
+            <div class="controls">
+                <input id="zipcodeinput" name="zipcodeinput" type="text" data-bind="value: zipcode" placeholder="zipcode" class="form-control" maxlength="5" required>
+            </div>
+        </div>
+
+        <!-- city input-->
+        <div class="form-group">
+            <label class="form-label" for="cityinput">City*</label>
+            <div class="controls">
+                <input id="cityinput" name="cityinput" type="text" data-bind=" value: city" placeholder="city" class="form-control"  required="">
+            </div>
+        </div>
+
+        <!-- phone input-->
+        <div class="form-group">
+            <label class="form-label" for="phoneinput">Phone Number</label>
+            <div class="controls">
+                <input id="phoneinput" name="phoneinput" type="text" data-bind=" value: phone" placeholder="(___) ___-____" maxlength="10" class="form-control">
+            </div>
+        </div>
+
+        <!-- hours input -->
+        <div id="container">
+            <label class="form-label" for="hours">Hours of Operation</label>
+
+            <div class="row">
+                <span class="col-md-1">Days</span>
+                <span class="col-md-1 col-offset-3" style="margin-left: 30px;">Available</span>
+                <span class="col-md-1 col-md-offset-2">Open</span>
+                <span class="col-md-1 col-md-offset-2">Close</span>
+            </div>
+            <hr style="height: 1px; margin-top: 0px; margin-bottom: 2px; border: none; color: rgb(169, 169, 169); background-color: rgb(169, 169, 169);" />
+
+            <div class="row">
+                <span class="col-md-1">Sunday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: sunCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: sunCB, value: sunOpen " name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: sunCB, value: sunClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Monday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: monCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: monCB, value: monOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: monCB, value: monClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Tuesday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: tueCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: tueCB, value: tueOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: tueCB, value: tueClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Wednesday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: wedCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: wedCB, value: wedOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: wedCB, value: wedClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Thursday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: thurCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: thurCB, value: thurOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: thurCB, value: thurClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Friday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: friCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: friCB, value: friOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: friCB, value: friClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+            <div class="row">
+                <span class="col-md-1">Saturday</span>
+                <span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+                    <input type="checkbox" data-bind="checked: satCB">Closed</span></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: satCB, value: satOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+                <span class="col-md-1 col-md-offset-2">
+                    <input type="time" data-bind=" disable: satCB, value: satClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+            </div>
+        </div>
+
+
+
+
+        <!-- category input -->
+        <div class="form-group">
+            <label class="form-label" for="category">Category</label>
+            <div class="controls">
+                <select id="category" name="category" class="form-control" required="">
+                    <option>Choose a category</option>
+                    <option>Restaurant</option>
+                    <option>Store</option>
+                    <option>Pharmacy</option>
+                    <option>Gas Station</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- location type input -->
+        <div class="form-group">
+            <label class="form-label" for="category">Location Type</label>
+            <div class="controls">
+                <select id="locationtype" name="locationtype" class="form-control" required="">
+                    <option value="1">Choose a location</option>
+                    <option value="1">Ground Level</option>
+                    <option value="2">Above Ground Level</option>
+                    <option value="3">Underground Level</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- rating input -->
+        <div class="rating">
+            <div class="row" style="padding-left: 15px">
+                <label class="form-label">Rating</label>
+            </div>
+            <span class="starrating" id="rate">
+                <input type="radio" name="rating" value="1"><i></i>
+                <input type="radio" name="rating" value="2"><i></i>
+                <input type="radio" name="rating" value="3"><i></i>
+                <input type="radio" name="rating" value="4"><i></i>
+                <input type="radio" name="rating" value="5"><i></i>
+            </span>
+        </div>
+        <strong class="choice">Choose a rating</strong>
+
+        <!-- review input -->
+        <div class="form-group">
+            <label class="form-label" for="review">Review</label>
+            <div class="controls">
+                <textarea id="review" data-bind="value: review " name="review"></textarea>
+            </div>
+        </div>
+
+        <!-- pic input -->
+        <div class="form-group">
+            <label class="form-label" for="filebutton">Insert Place Photo</label>
+            <div class="controls">
+                <input id="filebutton" name="filebutton" class="input-file" data-bind="value: picbutton" type="file">
+            </div>
+        </div>
+
+        <hr style="height: 1px; border: none; color: rgb(169, 169, 169); background-color: rgb(169, 169, 169);" />
+
+       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<input class="btn btn-primary" type="submit" value="Submit" id="submitPlaceButton"/> 
+  }
+
+
+</div>
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/RoundHere/lamJS.js"></script>
+    <script src="~/Scripts/jquery.maskedinput-1.3.1.min_.js"></script>
+    <script src="~/Scripts/knockout.validation.js"></script>
+@*    <script src="~/Scripts/jquery-1.9.1.js"></script>*@
+
+@*    <script type="text/javascript" src="http://digitalbush.com/wp-content/uploads/2013/01/jquery.maskedinput-1.3.1.min_.js"></script>*@
+@*    <script src="~/Scripts/jqBootstrapValidation.js"></script>*@
+@*    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>*@
+    <!-- or use local jquery -->
+
+}
+

@@ -1,0 +1,56 @@
+﻿@{
+	ViewBag.Title = "test";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title - RoundHere</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width" />
+	<link href="~/Content/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	@Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css")
+	@Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js")
+</head>
+
+<div class="container-fluid">
+	<div class="container container-pad" id="property-listings">
+
+		<div class="row">
+			<div class="col-md-4">
+				
+					<div class="alert alert-success" role="alert">User Added succesfully!</div>
+					<!-- Form Name -->
+					<h2>Testing Database</h2>
+					@using (Html.BeginForm("TestQueryExecution", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+					 {
+						<!-- name input-->
+						<div class="form-group">
+							<label class="form-label" for="nameinput">Name</label>
+							<div class="controls">
+								<input id="nameInput" name="nameinput" type="text" data-bind="value: name" placeholder="Enter Name" class="form-control">
+							</div>
+						</div>
+
+						<!-- date of birth input-->
+						<div class="form-group">
+							<label class="form-label" for="dobinput">Date of Birth</label>
+							<div class="controls">
+								<input id="dobInput" name="dobinput" type="date" data-bind="value: dob" class="form-control">
+							</div>
+						</div>
+
+						<!-- zip code input-->
+						<div class="form-group">
+							<label class="form-label" for="zipinput">Zip Code</label>
+							<div class="controls">
+								<input id="zipInput" name="zipinput" type="text" data-bind="value: zip" placeholder="Enter Zip Code" class="form-control">
+							</div>
+						</div>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input class="btn btn-primary" type="submit" value="Submit" id="submitUserButton"/> 
+					 }
+			</div>
+		</div>
+	</div>
+</div>

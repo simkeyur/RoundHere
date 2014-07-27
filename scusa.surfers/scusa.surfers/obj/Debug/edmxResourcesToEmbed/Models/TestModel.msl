@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InternProjectsModelStoreContainer" CdmEntityContainer="InternProjectsEntities">
+    <EntitySetMapping Name="Karma_User_Story">
+      <EntityTypeMapping TypeName="InternProjectsModel.Karma_User_Story">
+        <MappingFragment StoreEntitySet="Karma_User_Story">
+          <ScalarProperty Name="userStoryID" ColumnName="userStoryID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="iterationNumber" ColumnName="iterationNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Definitions">
+      <EntityTypeMapping TypeName="InternProjectsModel.Definition">
+        <MappingFragment StoreEntitySet="Definitions">
+          <ScalarProperty Name="n_Definition_ID" ColumnName="n_Definition_ID" />
+          <ScalarProperty Name="c_Definition" ColumnName="c_Definition" />
+          <ScalarProperty Name="n_def_Term_ID" ColumnName="n_def_Term_ID" />
+          <ScalarProperty Name="n_Definition_Rating" ColumnName="n_Definition_Rating" />
+          <ScalarProperty Name="n_Creator_ID" ColumnName="n_Creator_ID" />
+          <ScalarProperty Name="d_Created_Time" ColumnName="d_Created_Time" />
+          <ScalarProperty Name="n_Modified_By_ID" ColumnName="n_Modified_By_ID" />
+          <ScalarProperty Name="d_Modified_Time" ColumnName="d_Modified_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="InternProjectsModel.Tag">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="n_Tag_ID" ColumnName="n_Tag_ID" />
+          <ScalarProperty Name="c_Tag_Name" ColumnName="c_Tag_Name" />
+          <ScalarProperty Name="n_Creator_ID" ColumnName="n_Creator_ID" />
+          <ScalarProperty Name="d_Created_Time" ColumnName="d_Created_Time" />
+          <ScalarProperty Name="n_Modified_By_ID" ColumnName="n_Modified_By_ID" />
+          <ScalarProperty Name="d_Modified_Time" ColumnName="d_Modified_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Terms">
+      <EntityTypeMapping TypeName="InternProjectsModel.Term">
+        <MappingFragment StoreEntitySet="Terms">
+          <ScalarProperty Name="n_Term_ID" ColumnName="n_Term_ID" />
+          <ScalarProperty Name="c_Term_Name" ColumnName="c_Term_Name" />
+          <ScalarProperty Name="n_Creator_ID" ColumnName="n_Creator_ID" />
+          <ScalarProperty Name="c_Acronym" ColumnName="c_Acronym" />
+          <ScalarProperty Name="c_Created_Time" ColumnName="c_Created_Time" />
+          <ScalarProperty Name="n_Modified_By_ID" ColumnName="n_Modified_By_ID" />
+          <ScalarProperty Name="d_Modified_Time" ColumnName="d_Modified_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BaseTables">
+      <EntityTypeMapping TypeName="InternProjectsModel.BaseTable">
+        <MappingFragment StoreEntitySet="BaseTable">
+          <ScalarProperty Name="BaseID" ColumnName="BaseID" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="cCreatedBy" ColumnName="cCreatedBy" />
+          <ScalarProperty Name="cModifiedBy" ColumnName="cModifiedBy" />
+          <ScalarProperty Name="dDateCreated" ColumnName="dDateCreated" />
+          <ScalarProperty Name="dDateModified" ColumnName="dDateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="InternProjectsModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="cImagePath" ColumnName="cImagePath" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="InternProjectsModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="cName" ColumnName="cName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperationalHours">
+      <EntityTypeMapping TypeName="InternProjectsModel.OperationalHour">
+        <MappingFragment StoreEntitySet="OperationalHours">
+          <ScalarProperty Name="OperationalHoursId" ColumnName="OperationalHoursId" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="dOpen_Time" ColumnName="dOpen_Time" />
+          <ScalarProperty Name="dClose_Time" ColumnName="dClose_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Places">
+      <EntityTypeMapping TypeName="InternProjectsModel.Place">
+        <MappingFragment StoreEntitySet="Place">
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="cName" ColumnName="cName" />
+          <ScalarProperty Name="OperationalHoursId" ColumnName="OperationalHoursId" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="cPlaceCategory" ColumnName="cPlaceCategory" />
+          <ScalarProperty Name="cAddress" ColumnName="cAddress" />
+          <ScalarProperty Name="dXcoordinates" ColumnName="dXcoordinates" />
+          <ScalarProperty Name="dYcoordinates" ColumnName="dYcoordinates" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="cDescription" ColumnName="cDescription" />
+          <ScalarProperty Name="cAvailable" ColumnName="cAvailable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="InternProjectsModel.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="nValue" ColumnName="nValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="InternProjectsModel.Review">
+        <MappingFragment StoreEntitySet="Review">
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="cReview" ColumnName="cReview" />
+          <ScalarProperty Name="dReviewDate" ColumnName="dReviewDate" />
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TESTs">
+      <EntityTypeMapping TypeName="InternProjectsModel.TEST">
+        <MappingFragment StoreEntitySet="TEST">
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="cName" ColumnName="cName" />
+          <ScalarProperty Name="dDob" ColumnName="dDob" />
+          <ScalarProperty Name="nZipCode" ColumnName="nZipCode" />
+          <ScalarProperty Name="nAge" ColumnName="nAge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="M_Terms_Tags" TypeName="InternProjectsModel.M_Terms_Tags" StoreEntitySet="M_Terms_Tags">
+      <EndProperty Name="Tags">
+        <ScalarProperty Name="n_Tag_ID" ColumnName="n_Tag_ID" />
+      </EndProperty>
+      <EndProperty Name="Terms">
+        <ScalarProperty Name="n_Term_ID" ColumnName="n_Term_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

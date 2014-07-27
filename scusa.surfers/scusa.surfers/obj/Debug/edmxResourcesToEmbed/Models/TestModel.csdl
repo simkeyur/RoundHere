@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InternProjectsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="InternProjectsEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Karma_User_Story" EntityType="InternProjectsModel.Karma_User_Story" />
+    <EntitySet Name="Definitions" EntityType="InternProjectsModel.Definition" />
+    <EntitySet Name="Tags" EntityType="InternProjectsModel.Tag" />
+    <EntitySet Name="Terms" EntityType="InternProjectsModel.Term" />
+    <EntitySet Name="BaseTables" EntityType="InternProjectsModel.BaseTable" />
+    <EntitySet Name="Images" EntityType="InternProjectsModel.Image" />
+    <EntitySet Name="Locations" EntityType="InternProjectsModel.Location" />
+    <EntitySet Name="OperationalHours" EntityType="InternProjectsModel.OperationalHour" />
+    <EntitySet Name="Places" EntityType="InternProjectsModel.Place" />
+    <EntitySet Name="Ratings" EntityType="InternProjectsModel.Rating" />
+    <EntitySet Name="Reviews" EntityType="InternProjectsModel.Review" />
+    <EntitySet Name="TESTs" EntityType="InternProjectsModel.TEST" />
+    <AssociationSet Name="fk_Definitions_Terms" Association="InternProjectsModel.fk_Definitions_Terms">
+      <End Role="Terms" EntitySet="Terms" />
+      <End Role="Definitions" EntitySet="Definitions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Place_Image" Association="InternProjectsModel.fk_Place_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PlaceID" Association="InternProjectsModel.fk_PlaceID">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Place_OperationalHours" Association="InternProjectsModel.fk_Place_OperationalHours">
+      <End Role="OperationalHours" EntitySet="OperationalHours" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Rating_Place" Association="InternProjectsModel.fk_Rating_Place">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Review_Place" Association="InternProjectsModel.fk_Review_Place">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Review_Rating" Association="InternProjectsModel.fk_Review_Rating">
+      <End Role="Rating" EntitySet="Ratings" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="M_Terms_Tags" Association="InternProjectsModel.M_Terms_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Terms" EntitySet="Terms" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Karma_User_Story">
+    <Key>
+      <PropertyRef Name="userStoryID" />
+    </Key>
+    <Property Name="userStoryID" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="iterationNumber" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Definition">
+    <Key>
+      <PropertyRef Name="n_Definition_ID" />
+    </Key>
+    <Property Name="n_Definition_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="c_Definition" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="n_def_Term_ID" Type="Int32" Nullable="false" />
+    <Property Name="n_Definition_Rating" Type="Int32" />
+    <Property Name="n_Creator_ID" Type="Int32" Nullable="false" />
+    <Property Name="d_Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="n_Modified_By_ID" Type="Int32" />
+    <Property Name="d_Modified_Time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Term" Relationship="InternProjectsModel.fk_Definitions_Terms" FromRole="Definitions" ToRole="Terms" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="n_Tag_ID" />
+    </Key>
+    <Property Name="n_Tag_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="c_Tag_Name" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="n_Creator_ID" Type="Int32" Nullable="false" />
+    <Property Name="d_Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="n_Modified_By_ID" Type="Int32" />
+    <Property Name="d_Modified_Time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Terms" Relationship="InternProjectsModel.M_Terms_Tags" FromRole="Tags" ToRole="Terms" />
+  </EntityType>
+  <EntityType Name="Term">
+    <Key>
+      <PropertyRef Name="n_Term_ID" />
+    </Key>
+    <Property Name="n_Term_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="c_Term_Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="n_Creator_ID" Type="Int32" Nullable="false" />
+    <Property Name="c_Acronym" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="c_Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="n_Modified_By_ID" Type="Int32" />
+    <Property Name="d_Modified_Time" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Definitions" Relationship="InternProjectsModel.fk_Definitions_Terms" FromRole="Terms" ToRole="Definitions" />
+    <NavigationProperty Name="Tags" Relationship="InternProjectsModel.M_Terms_Tags" FromRole="Terms" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="BaseTable">
+    <Key>
+      <PropertyRef Name="BaseID" />
+    </Key>
+    <Property Name="BaseID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageID" Type="Int32" />
+    <Property Name="RatingID" Type="Int32" />
+    <Property Name="ReviewID" Type="Int32" />
+    <Property Name="PlaceID" Type="Int32" />
+    <Property Name="cCreatedBy" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+    <Property Name="cModifiedBy" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+    <Property Name="dDateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dDateModified" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="cImagePath" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="PlaceID" Type="Int32" />
+    <NavigationProperty Name="Places" Relationship="InternProjectsModel.fk_Place_Image" FromRole="Image" ToRole="Place" />
+    <NavigationProperty Name="Place" Relationship="InternProjectsModel.fk_PlaceID" FromRole="Image" ToRole="Place" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="cName" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="OperationalHour">
+    <Key>
+      <PropertyRef Name="OperationalHoursId" />
+    </Key>
+    <Property Name="OperationalHoursId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DayID" Type="Int32" Nullable="false" />
+    <Property Name="dOpen_Time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="dClose_Time" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Places" Relationship="InternProjectsModel.fk_Place_OperationalHours" FromRole="OperationalHours" ToRole="Place" />
+  </EntityType>
+  <EntityType Name="Place">
+    <Key>
+      <PropertyRef Name="PlaceID" />
+    </Key>
+    <Property Name="PlaceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="cName" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+    <Property Name="OperationalHoursId" Type="Int32" Nullable="false" />
+    <Property Name="ImageID" Type="Int32" Nullable="false" />
+    <Property Name="cPlaceCategory" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+    <Property Name="cAddress" Type="String" Nullable="false" MaxLength="99" Unicode="false" FixedLength="false" />
+    <Property Name="dXcoordinates" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="dYcoordinates" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="LocationID" Type="Int32" Nullable="false" />
+    <Property Name="cDescription" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="cAvailable" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Image" Relationship="InternProjectsModel.fk_Place_Image" FromRole="Place" ToRole="Image" />
+    <NavigationProperty Name="Images" Relationship="InternProjectsModel.fk_PlaceID" FromRole="Place" ToRole="Image" />
+    <NavigationProperty Name="OperationalHour" Relationship="InternProjectsModel.fk_Place_OperationalHours" FromRole="Place" ToRole="OperationalHours" />
+    <NavigationProperty Name="Ratings" Relationship="InternProjectsModel.fk_Rating_Place" FromRole="Place" ToRole="Rating" />
+    <NavigationProperty Name="Reviews" Relationship="InternProjectsModel.fk_Review_Place" FromRole="Place" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="RatingID" />
+    </Key>
+    <Property Name="RatingID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceID" Type="Int32" Nullable="false" />
+    <Property Name="nValue" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Place" Relationship="InternProjectsModel.fk_Rating_Place" FromRole="Rating" ToRole="Place" />
+    <NavigationProperty Name="Reviews" Relationship="InternProjectsModel.fk_Review_Rating" FromRole="Rating" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="cReview" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="dReviewDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="RatingID" Type="Int32" Nullable="false" />
+    <Property Name="PlaceID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Place" Relationship="InternProjectsModel.fk_Review_Place" FromRole="Review" ToRole="Place" />
+    <NavigationProperty Name="Rating" Relationship="InternProjectsModel.fk_Review_Rating" FromRole="Review" ToRole="Rating" />
+  </EntityType>
+  <EntityType Name="TEST">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="cName" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="dDob" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="nZipCode" Type="Int32" Nullable="false" />
+    <Property Name="nAge" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_Definitions_Terms">
+    <End Role="Terms" Type="InternProjectsModel.Term" Multiplicity="1" />
+    <End Role="Definitions" Type="InternProjectsModel.Definition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Terms">
+        <PropertyRef Name="n_Term_ID" />
+      </Principal>
+      <Dependent Role="Definitions">
+        <PropertyRef Name="n_def_Term_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Place_Image">
+    <End Role="Image" Type="InternProjectsModel.Image" Multiplicity="1" />
+    <End Role="Place" Type="InternProjectsModel.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImageID" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="ImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PlaceID">
+    <End Role="Place" Type="InternProjectsModel.Place" Multiplicity="0..1" />
+    <End Role="Image" Type="InternProjectsModel.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Place_OperationalHours">
+    <End Role="OperationalHours" Type="InternProjectsModel.OperationalHour" Multiplicity="1" />
+    <End Role="Place" Type="InternProjectsModel.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperationalHours">
+        <PropertyRef Name="OperationalHoursId" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="OperationalHoursId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Rating_Place">
+    <End Role="Place" Type="InternProjectsModel.Place" Multiplicity="1" />
+    <End Role="Rating" Type="InternProjectsModel.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Review_Place">
+    <End Role="Place" Type="InternProjectsModel.Place" Multiplicity="1" />
+    <End Role="Review" Type="InternProjectsModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Review_Rating">
+    <End Role="Rating" Type="InternProjectsModel.Rating" Multiplicity="1" />
+    <End Role="Review" Type="InternProjectsModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rating">
+        <PropertyRef Name="RatingID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="RatingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="M_Terms_Tags">
+    <End Role="Tags" Type="InternProjectsModel.Tag" Multiplicity="*" />
+    <End Role="Terms" Type="InternProjectsModel.Term" Multiplicity="*" />
+  </Association>
+</Schema>

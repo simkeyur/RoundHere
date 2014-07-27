@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "ViewPlace";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title - RoundHere</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width" />
+	<link href="~/Content/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	@Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css")
+	@Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js", "~/Scripts/RoundHere/carousel.js", "~/Scripts/RoundHere/AddReview.js")
+</head>
+
+<div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h1 class="page-header">Place Name
+                    <small>Place Category</small>
+                </h1>
+              
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="carousel slide article-slide" id="article-photo-carousel">
+
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner cont-slider">
+
+					<div class="item active">
+					  <img alt="" title="" src="http://placehold.it/530x400">
+					</div>
+					<div class="item">
+					  <img alt="" title="" src="http://placehold.it/530x400">
+					</div>
+					<div class="item">
+					  <img alt="" title="" src="http://placehold.it/530x400">
+					</div>
+					<div class="item">
+					  <img alt="" title="" src="http://placehold.it/530x400">
+					</div>
+					<div class="item">
+					  <img alt="" title="" src="http://placehold.it/530x400">
+					</div>
+				
+				  </div>
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+					<li class="active" data-slide-to="0" data-target="#article-photo-carousel">
+					  <img alt="" src="http://placehold.it/200x180">
+					</li>
+					<li class="" data-slide-to="1" data-target="#article-photo-carousel">
+					  <img alt="" src="http://placehold.it/200x180">
+					</li>
+					<li class="" data-slide-to="2" data-target="#article-photo-carousel">
+					  <img alt="" src="http://placehold.it/200x180">
+					</li>
+					<li class="" data-slide-to="3" data-target="#article-photo-carousel">
+					  <img alt="" src="http://placehold.it/200x180">
+					</li>
+					<li class="" data-slide-to="4" data-target="#article-photo-carousel">
+					  <img alt="" src="http://placehold.it/200x180">
+					</li>
+				  </ol>
+				</div>
+            </div>
+
+            <div class="col-md-4">
+                <h3>Place Description</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+                <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
+				<h3>Hours</h3>
+				
+                <ul>
+                    <li>Lorem Ipsum</li>
+                    <li>Dolor Sit Amet</li>
+                    <li>Consectetur</li>
+                    <li>Adipiscing Elit</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Reviews</h3>
+            </div>
+
+            <div class="container">
+			<div class="row" style="margin-top:40px;">
+				<div class="col-md-12">
+    			<div class="well well-sm">
+					<div class="text-right">
+						<a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
+					</div>
+        
+					<div class="row" id="post-review-box" style="display:none;">
+						<div class="col-md-12">
+							<form accept-charset="UTF-8" action="" method="post">
+								<input id="ratings-hidden" name="rating" type="hidden"> 
+								<textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+        
+								<div class="text-right">
+									<div class="stars starrr" data-rating="0"></div>
+									<a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+									<span class="glyphicon glyphicon-remove"></span>Cancel</a>
+									<button class="btn btn-success btn-lg" type="submit">Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div> 
+         
+				</div>
+			</div>
+		</div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+
+ <div class="container">
+
+        <hr>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; SCUSA</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
