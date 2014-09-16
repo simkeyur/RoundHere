@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<scusa.surfers.DataAccess.SearchModel>
+
+@{
     ViewBag.Title = "List";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -31,7 +33,9 @@
             <div class="row">
                 <div class="col-sm-12"> 
 
-                    <!-- Begin Listing: Tacos la Banqueta-->
+
+					@foreach (var row in Model) {
+                    <!-- Begin Listing: TaPlaces-->
                     <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
                         <div class="media">
                             <a class="pull-left" href="#" target="_parent">
@@ -43,245 +47,26 @@
                                 <a href="#" target="_parent"></a>
 
                                 <h4 class="media-heading">
-                                  <a href="#" target="_parent">Tacos la Banqueta <small class="pull-right">Mexican</small></a></h4>
+                                  <a href="/Home/ViewPlace/@row.Id" target="_parent">@row.Name<small class="pull-right">@row.PlaceCategory</small></a></h4>
 
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
+								
+								<input id="input-21e" value="3" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
                                 <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 324-4445</li>
+                                    <li>@row.PhoneNumber</li>
 
                                     <li style="list-style: none">|</li>
 
-                                    <li>$$</li>
+                                    <li>@row.LocationID</li>
 
                                     
                                 </ul>
 
-                                <p class="hidden-xs">Authentic and cheap... what's not to love? It's not exactly a hole in the wall, but at the same time it's not exactly the most well known place or in a prime location.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
+                                <p class="hidden-xs">@row.Description</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
                             </div>
                         </div>
                     </div><!-- End Listing-->
-
-					 <!-- Begin Listing: ChopHouse Burger-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media3.fl.yelpcdn.com/bphoto/fFRaClR9nh5hxQsCM7D3Qw/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Chop House Burger <small class="pull-right">Burgers</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 741-2747</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-									<li style="list-style: none">|</li>
-
-                                    <li>www.chophouseburger.com</li>
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Possibly one of the best places for burgers. I got a burger and fries and couldn't even get to the fries because the burger was so big a juicy. I got the buffalo burger and. lol don't taste the buffalo but it tasted amazing regardless. Went at lunch time so it was super packed but they were fast.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: Tacos la Banqueta-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media2.fl.yelpcdn.com/bphoto/upylz9GIjC2nwkncLSJFpA/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Tacos la Banqueta <small class="pull-right">Mexican</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 324-4445</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Authentic and cheap... what's not to love? It's not exactly a hole in the wall, but at the same time it's not exactly the most well known place or in a prime location.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: ChopHouse Burger-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media3.fl.yelpcdn.com/bphoto/fFRaClR9nh5hxQsCM7D3Qw/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Chop House Burger <small class="pull-right">Burgers</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 741-2747</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-									<li style="list-style: none">|</li>
-
-                                    <li>www.chophouseburger.com</li>
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Possibly one of the best places for burgers. I got a burger and fries and couldn't even get to the fries because the burger was so big a juicy. I got the buffalo burger and. lol don't taste the buffalo but it tasted amazing regardless. Went at lunch time so it was super packed but they were fast.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: Tacos la Banqueta-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media2.fl.yelpcdn.com/bphoto/upylz9GIjC2nwkncLSJFpA/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Tacos la Banqueta <small class="pull-right">Mexican</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 324-4445</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Authentic and cheap... what's not to love? It's not exactly a hole in the wall, but at the same time it's not exactly the most well known place or in a prime location.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: ChopHouse Burger-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media3.fl.yelpcdn.com/bphoto/fFRaClR9nh5hxQsCM7D3Qw/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Chop House Burger <small class="pull-right">Burgers</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 741-2747</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-									<li style="list-style: none">|</li>
-
-                                    <li>www.chophouseburger.com</li>
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Possibly one of the best places for burgers. I got a burger and fries and couldn't even get to the fries because the burger was so big a juicy. I got the buffalo burger and. lol don't taste the buffalo but it tasted amazing regardless. Went at lunch time so it was super packed but they were fast.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: Tacos la Banqueta-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media2.fl.yelpcdn.com/bphoto/upylz9GIjC2nwkncLSJFpA/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Tacos la Banqueta <small class="pull-right">Mexican</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 324-4445</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Authentic and cheap... what's not to love? It's not exactly a hole in the wall, but at the same time it's not exactly the most well known place or in a prime location.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
-
-					 <!-- Begin Listing: ChopHouse Burger-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://s3-media3.fl.yelpcdn.com/bphoto/fFRaClR9nh5hxQsCM7D3Qw/l.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">Chop House Burger <small class="pull-right">Burgers</small></a></h4>
-
-								<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>(214) 741-2747</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>$$</li>
-
-									<li style="list-style: none">|</li>
-
-                                    <li>www.chophouseburger.com</li>
-                                    
-                                </ul>
-
-                                <p class="hidden-xs">Possibly one of the best places for burgers. I got a burger and fries and couldn't even get to the fries because the burger was so big a juicy. I got the buffalo burger and. lol don't taste the buffalo but it tasted amazing regardless. Went at lunch time so it was super packed but they were fast.</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of Yelp</span>
-                            </div>
-                        </div>
-                    </div><!-- End Listing-->
+					}
+					
                 </div><!--End col -->
             </div><!-- End row -->
         </div><!-- End container -->

@@ -1,21 +1,20 @@
-﻿
-
-$(document).ready(function () {
-
-    //$('.timepicker').timepicker();
-
-    //$("#phoneinput").inputmask({
-    //    mask: '999-999-9999'
-    //})
+﻿$(document).ready(function () {
 
     $('#phoneinput').mask('(999) 999-9999');
     $('#zipcodeinput').mask('99999');
 
-
-
+    ko.validation.configure({
+        registerExtenders: true,
+        messageOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null,
+        decorateElement: true
+    });
 
     displayVM = function () {
         var self = this;
+
         self.sunCB = ko.observable(false);
         self.monCB = ko.observable(false);
         self.tueCB = ko.observable(false);
@@ -37,89 +36,475 @@ $(document).ready(function () {
         self.friClose = ko.observable();
         self.satOpen = ko.observable();
         self.satClose = ko.observable();
+
+
+
+
+
         self.name = ko.observable();
+        self.name.extend({
+            minLength: 2,
+            required: true,
+            pattern: {
+                message: 'Please enter a valid name',
+                params: /^[a-zA-Z' .-]+$/
+            }
+        });
+
         self.address = ko.observable();
-        self.phone = ko.observable();
+        self.address.extend({
+            required: true,
+            pattern: {
+                message: 'Please enter a valid address',
+                params: /^((?!([\x40\[\]\/\\\$\?\!\^\-%&'()_+`~={}'""<>:;]|(\b[pP]\.?\s{0,}[oO]\.?\s{0,}\b([bB][oO][xX])?\s{0,}(no|number)?\s{0,}#?\s{0,}\d{1,})|([pP][oO][sS][tT] [oO][fF]{2,2}[iI][cC][eE] [bB][oO][xX] \d{3,}))).)*$/
+
+            }
+        });
+
+
         self.zipcode = ko.observable();
+        self.zipcode.extend({
+            required: true,
+            pattern: {
+                message: 'Please enter a valid zipcode',
+                params: /^\d{5}$/
+            }
+        });
+
         self.city = ko.observable();
-        self.review = ko.observable();
-        self.picbutton = ko.observable();
+        self.city.extend({
+            required: true,
+            pattern: {
+                message: 'Invalid city',
+                params: /^[A-Za-z ]+$/
+            }
+        });
+
+        self.phone = ko.observable();
+        self.city.extend({
+            message: 'Please enter a valid phonenumber',
+            params: /^\d{10}$/
+        });
+
+        self.description = ko.observable();
+        //self.picbutton = ko.observable();
         self.cancel = ko.observable();
 
-        //$("#form-group1").validate({
-        //    rules: {
-        //        test: {
-        //            minlength: 3,
-        //            required: true
-        //        }
-        //    },
-        //    showErrors: function (errorMap, errorList) {
-        //        $.each(this.successList, function (index, value) {
-        //            return $(value).popover("hide");
-        //        });
-        //        return $.each(errorList, function (index, value) {
-        //            var _popover;
-        //            console.log(value.message);
-        //            _popover = $(value.element).popover({
-        //                trigger: "manual",
-        //                placement: "bottom",
-        //                content: value.message,
-        //                template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><p></p></div></div></div>"
-        //            });
-        //            _popover.data("popover").options.content = value.message;
-        //            return $(value.element).popover("show");
-        //        });
-        //    }
-        //});
+        $("input[name=hours]").on("click", function () {
+            //alert("saved data");
+
+            //sunday
+
+            if (self.sunCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=sundayOpen]").text("Closed");
+                $("span[id=sundayClose]").text("Closed");
+            }
+            else {
+                //throw sunday open time
+
+                var openTemp = self.sunOpen() + "";
+                var closeTemp = self.sunClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                // alert(Open + " " + Close);
+
+
+                $("span[id=sundayOpen]").text(Open);
+                $("span[id=sundayClose]").text(Close);
+            }
+
+            //monday
+
+            if (self.monCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=mondayOpen]").text("Closed");
+                $("span[id=mondayClose]").text("Closed");
+            }
+            else {
+                //throw monday open time
+
+                var openTemp = self.monOpen() + "";
+                var closeTemp = self.monClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=mondayOpen]").text(Open);
+                $("span[id=mondayClose]").text(Close);
+            }
+
+            //tuesday
+
+            if (self.tueCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=tuesdayOpen]").text("Closed");
+                $("span[id=tuesdayClose]").text("Closed");
+            }
+            else {
+                //throw tuesday open time
+
+                var openTemp = self.tueOpen() + "";
+                var closeTemp = self.tueClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=tuesdayOpen]").text(Open);
+                $("span[id=tuesdayClose]").text(Close);
+            }
+
+            //wednesday
+
+            if (self.wedCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=wednesdayOpen]").text("Closed");
+                $("span[id=wednesdayClose]").text("Closed");
+            }
+            else {
+                //throw wednesday open time
+
+                var openTemp = self.wedOpen() + "";
+                var closeTemp = self.wedClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=wednesdayOpen]").text(Open);
+                $("span[id=wednesdayClose]").text(Close);
+            }
+
+            //thursday
+
+            if (self.thurCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=thursdayOpen]").text("Closed");
+                $("span[id=thursdayClose]").text("Closed");
+            }
+            else {
+                //throw thursday open time
+
+                var openTemp = self.thurOpen() + "";
+                var closeTemp = self.thurClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=thursdayOpen]").text(Open);
+                $("span[id=thursdayClose]").text(Close);
+            }
+
+            //friday
+
+            if (self.friCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=fridayOpen]").text("Closed");
+                $("span[id=fridayClose]").text("Closed");
+            }
+            else {
+                //throw friday open time
+
+                var openTemp = self.friOpen() + "";
+                var closeTemp = self.friClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=fridayOpen]").text(Open);
+                $("span[id=fridayClose]").text(Close);
+            }
+
+            //saturday
+
+            if (self.satCB() == true) {
+                // alert("closed");
+                //compute the closed area
+
+                $("span[id=saturdayOpen]").text("Closed");
+                $("span[id=saturdayClose]").text("Closed");
+            }
+            else {
+                //throw saturday open time
+
+                var openTemp = self.satOpen() + "";
+                var closeTemp = self.satClose() + "";
+                var openSplit = openTemp.split(":");
+                var closeSplit = closeTemp.split(":");
+
+                var otemp = (openSplit[0] >= 12) ? "P.M." : "A.M.";
+                var openHour = ((openSplit[0] > 0 && openSplit[0] < 12) ? openSplit[0] : (openSplit[0] == 0) ? 12 : openSplit[0] - 12);
+                var openMin = openSplit[1];
+                temp = openHour.toString().split("");
+                if (temp[0] == 0) {
+                    openHour = temp.slice(1);
+                }
+                var ctemp = (closeSplit[0] >= 12) ? "P.M." : "A.M.";
+                var closeHour = ((closeSplit[0] > 0 && closeSplit[0] < 13) ? closeSplit[0] : (closeSplit[0] == 0) ? 12 : closeSplit[0] - 12);
+                var closeMin = closeSplit[1];
+                temp = closeHour.toString().split("");
+                if (temp[0] == 0) {
+                    closeHour = temp.slice(1);
+                }
+                if (isNaN(openHour) || isNaN(openMin)) {
+                    var Open = "Enter Valid Time";
+                }
+                else {
+                    var Open = openHour + ":" + openMin + " " + otemp;
+
+                }
+
+                if (isNaN(closeHour) || isNaN(closeMin)) {
+                    var Close = "Enter Valid Time";
+                }
+                else {
+                    var Close = closeHour + ":" + closeMin + " " + ctemp;
+                }
+
+
+                //alert(Open + " " + Close);
+
+                $("span[id=saturdayOpen]").text(Open);
+                $("span[id=saturdayClose]").text(Close);
+            }
+
+
+
+        });
+
+
+
 
         self.Save = function () {
-            //$("input,select").not("[type=submit]").jqBootstrapValidation();
-
+            var $this = this;
 
             var location = $('#locationtype :selected').text();
             var category = $('#category :selected').text();
-            var rate = $('input:radio[name=rating]:checked').val();
-
-            //alert("name: " + self.name());
-            //alert("address: " + self.address());
-            //alert("zipcode: " + self.zipcode());
-            //alert("city: " + self.city());
-            //alert("phone: " + self.phone());
-            //alert("open day: " + self.sunOpen());
-            //alert("open to close: " + self.sunClose());
-            //alert("closed: " + self.monCB());
-            //alert("category: " + category);
-            //alert("location: " + location);
-            //alert("rate: " + rate);
-            //alert("review: " + self.review());
-
-            //if (self.sunCB() == true) {
-            //    var sundayOpen = 'closed';
-
-            //    //alert("sunday: " + self.sunCB() + " " + sundayOpen + " " + sunOpenTime + " " + sunCloseTime);
-            //}
-            //else {
-            //    var sundayOpen = 'open';
-            //    var sunOpenTime = self.sunOpen();
-            //    var sunCloseTime = self.sunClose();
-            //    //alert("sunday: " + self.sunCB() + " " + sundayOpen + " " + sunOpenTime + " " + sunCloseTime);
-
-            //}
-
-            //if (sunOpenTime == null && sunCloseTime == null && sundayOpen == 'closed') {
-            //    sunOpenTime = 'closed';
-            //    sunCloseTime = 'closed';
-            //    alert("sunday: " + self.sunCB() + " " + sundayOpen + " " + sunOpenTime + " " + sunCloseTime);
-            //}
-            //else {
-            //    alert("Please enter an open time and close time");
-            //}
+            //var rate = $('input:radio[name=rating]:checked').val();
 
 
 
-        };
+            if (self.isValid()) {
+                // alert('valid data');
+                //alert(" sunday time: " + self.sunOpen() + " " + self.sunClose());
+
+                self.errors = ko.validation.group(self);
+
+                //$("#submitUserButton").on("click", function () {
+                //    $.post("RoundHere/Home/CreateQueryExecution", {
+
+                //    });
+                //});
+            }
+            else {
+                self.errors.showAllMessages();
+            }
+
+        }
+        //end save
+        self.errors = ko.validation.group(self, { deep: true });
     };
-
+    //end function
 
     var model = new displayVM();
     ko.applyBindings(model);
@@ -127,17 +512,27 @@ $(document).ready(function () {
 });
 
 
-//function required( validation )
-//{
-    
-//    var x = document.forms[]["fname"].value;
-//    if (x == null || x == "") {
-//        alert("First name must be filled out");
-//        return false;
-//    }
+//chart hours
 
+//self.sundayTime = ko.observable();
+
+//var sunOpen = $('input');
+
+//if (self.sunCB() == true) {
+//    self.sundayTime = ko.observable("Closed");
+//}
+//else {
+//    self.sundayTime = ko.observable(self.sunOpen());
 //}
 
+//var checkSunday = function () {
+//    if (self.sunCB() == true) {
+//        alert("reach");
+//        $("span").text("closed");
+//    }
+//    else {
+//        $("span").text(self.sunOpen());
+//    }
+//};
 
-
-
+//$("input[name = 'sunCheck']:checked").on("click", checkSunday);

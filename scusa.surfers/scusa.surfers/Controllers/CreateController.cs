@@ -18,11 +18,11 @@ namespace scusa.surfers.Controllers
             return View();
         }
 
-		public ActionResult CreateQueryExecution(string nameinput, string addressinput, string zipcodeinput, string cityinput, string phoneinput, string category, string locationtype, string rate, string review)
+		public ActionResult CreateQueryExecution(string nameinput, string addressinput, string zipcodeinput, string cityinput, string phoneinput, string category, string locationtype, string state, string description)
 		{
 			// TODO: I have no idea what this was supposed to do.
 			// CreateQuery testModel = new CreateQuery(nameinput, addressinput, zipcodeinput, cityinput, phoneinput, category, locationtype, rate, review);
-			DataAccess.SavePlacesWithDapper(nameinput, addressinput, zipcodeinput, cityinput, phoneinput, category, locationtype, rate, review);
+			DataAccess.SavePlacesWithDapper(nameinput, addressinput, zipcodeinput, cityinput, phoneinput, category, locationtype, state, description);
 			return RedirectToAction("Index");
 		}
 

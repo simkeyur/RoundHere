@@ -1,12 +1,90 @@
-﻿@{
+﻿@model scusa.surfers.Models.IndexModel
+@{
 	ViewBag.Title = "Home Page";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title - RoundHere</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width" />
+	<link href="~/Content/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	@Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css", "~/Content/Create.css")
 
+</head>
 
-<body>
-	<div id="map-canvas" width:100%; />
+<div id="map-canvas" width="100%"></div>
+<hr />
+<div>
+	<!-- Top Rated Places Table -->
+	<div class="col-lg-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-money"></i> Top Rated Places</h3>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-striped tablesorter">
+						<thead>
+							<tr>
+								<th>Place Name</th>
+								<th>Rating</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var row in Model.TopRated) {
+							<tr>
+								<td><a href="../Home/ViewPlace/@row.Id">@row.name</a></td>
+								<td><input id="input-3" value="@row.rating" class="rating" data-show-clear="false" data-show-caption="true" data-size="xs" data-readonly="true"></td>
+							</tr>
+							 }
+						</tbody>
+					</table>
+				</div>
+				<div class="text-right">
+					<a>View All Places <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-9">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-money"></i> Top Rated Places</h3>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-striped tablesorter">
+						<thead>
+							<tr>
+								<th>Place Name</th>
+								<th>Reviews</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var row in Model.LatestReviews) {
+							<tr>
+								<td><a href="../Home/ViewPlace/@row.Id">@row.name</a></td>
+								<td>@row.reviews</td>
+								<td>@row.date</td>
+							</tr>
+							 }
+						</tbody>
+					</table>
+				</div>
+				<div class="text-right">
+					<a>View All Places <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	
-	
-</body>
+
+</div>
+
+@Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js", "~/Scripts/RoundHere/carousel.js", "~/Scripts/RoundHere/AddReview.js", "~/Scripts/RoundHere/LamJS.js", "~/Scripts/holder.js")
+

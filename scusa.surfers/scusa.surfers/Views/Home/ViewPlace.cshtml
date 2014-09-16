@@ -1,145 +1,365 @@
-﻿@{
-    ViewBag.Title = "ViewPlace";
+﻿@model scusa.surfers.Models.PlaceViewModel
+
+
+@{
+	ViewBag.Title = "ViewPlace";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head>
 	<meta charset="utf-8" />
 	<title>@ViewBag.Title - RoundHere</title>
-	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<meta name="viewport" content="width=device-width" />
 	<link href="~/Content/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	@Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css")
-	@Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js", "~/Scripts/RoundHere/carousel.js", "~/Scripts/RoundHere/AddReview.js")
+	@Styles.Render("~/Content/css", "~/Content/RoundHere/star-rating.css", "~/Content/RoundHere/style.css", "~/Content/Create.css")
+
 </head>
 
 <div class="container">
 
-        <div class="row">
+	<div class="row">
 
-            <div class="col-lg-12">
-                <h1 class="page-header">Place Name
-                    <small>Place Category</small>
-                </h1>
-              
-            </div>
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				@Model.Place.Name
+				<small>@Model.Place.PlaceCategory</small>
+			</h1>
 
-        </div>
+		</div>
 
-        <div class="row">
+	</div>
 
-            <div class="col-md-6">
-                <div class="carousel slide article-slide" id="article-photo-carousel">
+	<div class="row">
 
-				  <!-- Wrapper for slides -->
-				  <div class="carousel-inner cont-slider">
+		<div class="col-md-6">
+			<div class="carousel slide article-slide" id="article-photo-carousel">
 
-					<div class="item active">
-					  <img alt="" title="" src="http://placehold.it/530x400">
-					</div>
-					<div class="item">
-					  <img alt="" title="" src="http://placehold.it/530x400">
-					</div>
-					<div class="item">
-					  <img alt="" title="" src="http://placehold.it/530x400">
-					</div>
-					<div class="item">
-					  <img alt="" title="" src="http://placehold.it/530x400">
-					</div>
-					<div class="item">
-					  <img alt="" title="" src="http://placehold.it/530x400">
-					</div>
-				
-				  </div>
-				  <!-- Indicators -->
-				  <ol class="carousel-indicators">
-					<li class="active" data-slide-to="0" data-target="#article-photo-carousel">
-					  <img alt="" src="http://placehold.it/200x180">
-					</li>
-					<li class="" data-slide-to="1" data-target="#article-photo-carousel">
-					  <img alt="" src="http://placehold.it/200x180">
-					</li>
-					<li class="" data-slide-to="2" data-target="#article-photo-carousel">
-					  <img alt="" src="http://placehold.it/200x180">
-					</li>
-					<li class="" data-slide-to="3" data-target="#article-photo-carousel">
-					  <img alt="" src="http://placehold.it/200x180">
-					</li>
-					<li class="" data-slide-to="4" data-target="#article-photo-carousel">
-					  <img alt="" src="http://placehold.it/200x180">
-					</li>
-				  </ol>
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner cont-slider">
+					@{int i = 0;
+						foreach (var image in Model.Images.Take(5))
+						 {
+							if(i == 0){
+								<div class="item active">
+									<img alt="" title="" src="@image.path" style="min-height:530px;height:530px;width:500px;">
+								</div>
+								}
+							else{
+								<div class="item">
+									<img alt="" title="" src="@image.path" style="min-height:530px;height:530px;width:500px;">
+								</div>
+							 }
+								
+							 i++;
+						 }
+					 
+					 }
+					
+
 				</div>
-            </div>
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
 
-            <div class="col-md-4">
-                <h3>Place Description</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-				<h3>Hours</h3>
+					@{int j = 0;
+						foreach (var image in Model.Images.Take(5))
+						 {
+							if(j == 0){
+								<li class="active" data-slide-to="@j" data-target="#article-photo-carousel">
+									<img alt="" src="@image.path">
+								</li>
+								}
+							else{
+								<li class="" data-slide-to="@j" data-target="#article-photo-carousel">
+									<img alt="" src="@image.path">
+								</li>
+							}
+
+							j++;
+						 }
+					 
+					 }
+					
+				</ol>
+			</div>
+			@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+					 {
+							<h3>Upload Image</h3>
+							<div class="fileinput fileinput-new" data-provides="fileinput">	
+								<div>
+									<span class="btn btn-default btn-file">
+										<span class="fileinput-new"></span>
+										<span class="fileinput-exists">Change/Remove</span>
+										<input type="file" name="file" id="file" />
+
+									</span>
+
+								</div>
+							</div>
 				
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
-            </div>
+							@Html.Hidden("placeId", @Model.Place.Id)
+							@Html.Hidden("placeCategory", @Model.Place.PlaceCategory)
+							@Html.Hidden("LocationID", @Model.Place.LocationID)
 
-        </div>
+							<input class="btn btn-success btn-sm" type="submit" value="Upload" />
+						}
+		</div>
 
-        <div class="row">
+		<div class="col-md-4">
+			<h3>Place Description</h3>
+			<p>@Model.Place.Description</p>
 
-            <div class="col-lg-12">
-                <h3 class="page-header">Reviews</h3>
-            </div>
+			<h3>Place Address</h3>
+			<p>@Model.Place.Address</p>
+			<p>@Model.Place.LocationID</p>
+			<p>PH: @Model.Place.PhoneNumber</p>
 
-            <div class="container">
-			<div class="row" style="margin-top:40px;">
-				<div class="col-md-12">
-    			<div class="well well-sm">
+			<input id="input-3" value="@Model.Rating.rating_avg" class="rating" data-show-clear="false" data-show-caption="true" data-size="xs" data-readonly="true">
+			<h3>Hours <a data-toggle="modal" data-target="#hoursModal"><i class="fa  fa-pencil-square-o"></i></a></h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Day</th>
+						<th>Open Time</th>
+						<th>Close Time</th>
+					</tr>
+				</thead>
+				<tbody>
+             <tr>
+                        <td>Sunday</td>
+                        <td><span id="sundayOpen"></span></td>
+                        <td><span id="sundayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Monday</td>
+                        <td><span id="mondayOpen"></span></td>
+                        <td><span id="mondayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td><span id="tuesdayOpen"></span></td>
+                        <td><span id="tuesdayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td><span id="wednesdayOpen"></span></td>
+                        <td><span id="wednesdayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td><span id="thursdayOpen"></span></td>
+                        <td><span id="thursdayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td><span id="fridayOpen"></span></td>
+                        <td><span id="fridayClose"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td><span id="saturdayOpen"></span></td>
+                        <td><span id="saturdayClose"></span></td>
+                    </tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+
+	<div class="container">
+		<dv class="row" style="margin-top: 40px;">
+
+
+				
+				<div class="well well-sm">
 					<div class="text-right">
 						<a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
 					</div>
-        
-					<div class="row" id="post-review-box" style="display:none;">
+
+					<div class="row" id="post-review-box" style="display: none;">
 						<div class="col-md-12">
-							<form accept-charset="UTF-8" action="" method="post">
-								<input id="ratings-hidden" name="rating" type="hidden"> 
-								<textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
-        
+
+							@using (Html.BeginForm("ReviewInputExecution", "Home", FormMethod.Post))
+	   {
+								<textarea class="form-control animated" cols="50" id="reviewTextArea" name="reviewTextArea" placeholder="Enter your review here..." rows="5"></textarea>
+									
 								<div class="text-right">
-									<div class="stars starrr" data-rating="0"></div>
-									<a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-									<span class="glyphicon glyphicon-remove"></span>Cancel</a>
-									<button class="btn btn-success btn-lg" type="submit">Save</button>
+									<div class="rating">
+
+										<span class="starrating" id="rate">
+											
+											<input type="radio" name="rating" value="1" required><i></i>
+											<input type="radio" name="rating" value="2" required><i></i>
+											<input type="radio" name="rating" value="3" required><i></i>
+											<input type="radio" name="rating" value="4" required><i></i>
+											<input type="radio" name="rating" value="5" required><i></i>
+										</span>
+									</div>
+									@Html.Hidden("placeId", @Model.Place.Id)
+									<a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display: none; margin-right: 10px;">
+										<span class="glyphicon glyphicon-remove"></span>Cancel</a>
+									 <input class="btn btn-success btn-sm" type="submit" value="Submit" />
 								</div>
-							</form>
+	   }
+
 						</div>
 					</div>
-				</div> 
-         
 				</div>
+		</div>
+	</div>
+
+</div>
+<!-- /.container -->
+
+<!-- recent reviews -->
+<div class="container">
+	<div class="row">
+		<div class="panel panel-default widget">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-comment"></span>
+				<h3 class="panel-title">Recent Reviews</h3>
+				<span class="label label-info">New</span>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					@foreach (var review in Model.Reviews)
+	 {
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 col-md-1">
+									<img src="http://placehold.it/80" class="img-circle img-responsive" alt="" />
+								</div>
+								<div class="col-xs-10 col-md-11">
+									<div>
+										<input id="input-6a" value="@review.rating" class="rating" data-show-clear="false" data-show-caption="true" data-size="xs" data-readonly="true">
+
+										<div class="comment-text">
+											@review.review
+										</div>
+										<div class="mic-info">
+											By: <a href="#">SCUSA User</a> on @review.createDate
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</li>
+	 }
+				</ul>
 			</div>
 		</div>
+	</div>
+</div>
 
-        </div>
+<!-- recent reviews -->
 
-    </div>
-    <!-- /.container -->
+<div class="container">
 
+	<hr>
 
- <div class="container">
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p>Copyright &copy; SCUSA</p>
+			</div>
+		</div>
+	</footer>
 
-        <hr>
+</div>
+<!-- /.container -->
 
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; SCUSA</p>
-                </div>
-            </div>
-        </footer>
+<!--  Edit Hours START-->
+<div class="modal fade" id="hoursModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Hours of Operation</h4>
+			</div>
+			<div class="modal-body" style="height:300px">
 
-    </div>
-    <!-- /.container -->
+				<div class="row">
+					<span class="col-md-1">Days</span>
+					<span class="col-md-1 col-offset-3" style="margin-left: 30px;">Available</span>
+					<span class="col-md-1 col-md-offset-2">Open</span>
+					<span class="col-md-1 col-md-offset-2">Close</span>
+				</div>
+				<hr style="height: 1px; margin-top: 0px; margin-bottom: 2px; border: none; color: rgb(169, 169, 169); background-color: rgb(169, 169, 169);" />
+
+				<div class="row">
+					<span class="col-md-1">Sunday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" name="sunCheck" data-bind="checked: sunCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: sunCB, value: sunOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: sunCB, value: sunClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Monday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: monCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: monCB, value: monOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: monCB, value: monClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Tuesday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: tueCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: tueCB, value: tueOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: tueCB, value: tueClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Wednesday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: wedCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: wedCB, value: wedOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: wedCB, value: wedClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Thursday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: thurCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: thurCB, value: thurOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: thurCB, value: thurClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Friday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: friCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: friCB, value: friOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: friCB, value: friClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<div class="row">
+					<span class="col-md-1">Saturday</span>
+					<span class="col-md-1 col-offset-3"><span class="checkbox" style="margin-left: 30px; margin-top: 0px;">
+						<input type="checkbox" data-bind="checked: satCB">Closed</span></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: satCB, value: satOpen" name="start_time" data-default-time="false" style="width: 110px;" /></span>
+					<span class="col-md-1 col-md-offset-2">
+						<input type="time" data-bind=" disable: satCB, value: satClose" name="end_time" data-default-time="false" style="width: 110px;" /></span>
+				</div>
+				<input class="btn btn-success btn-sm" name="hours" type="submit" value="Save" id="PlaceID" style="float:right" />
+			</div>
+		</div>
+		<!-- /.modal-content -->
+
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!--  Edit hours END-->
+
+@Scripts.Render("~/bundles/modernizr", "~/Scripts/RoundHere/star-rating.js", "~/Scripts/RoundHere/carousel.js", "~/Scripts/RoundHere/AddReview.js", "~/Scripts/RoundHere/LamJS.js", "~/Scripts/holder.js")
